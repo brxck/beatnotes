@@ -30,17 +30,58 @@ const NodeEditor = ({ playerRef }) => {
   }
 
   const onKeyDown = (event, editor, next) => {
-    // Return with no changes if the keypress is not '&'
+    if (editor.value.inlines.some(inline => inline.type === 'timestamp')) {
+      event.preventDefault()
+      editor.moveToEndOfInline()
+      next()
+    }
     if (event.key !== '&') return next()
-
-    // Prevent the ampersand character from being inserted.
     event.preventDefault()
 
-    // Change the value by inserting 'and' at the cursor's position.
-    editor.insertText(playerRef.current.getCurrentTime())
+    const currentTime = playerRef.current.getCurrentTime()
+    const minutes = new String(Math.floor(currentTime / 60)).padStart(2, '0')
+    const seconds = new String(Math.floor(currentTime % 60)).padStart(2, '0')
+    editor
+      .insertInline({
+        type: 'timestamp',
+        data: {
+          start: currentTime,
+        },
+      })
+      .insertText(`${minutes}:${seconds}`)
   }
 
-  return <Editor value={value} onChange={onChange} onKeyDown={onKeyDown} />
+  const renderNode = (props, editor, next) => {
+    const { node, attributes, children } = props
+
+    switch (node.type) {
+      case 'timestamp':
+        return (
+          <a
+            href=""
+            {...attributes}
+            onClick={e => {
+              e.preventDefault()
+              const startTime = node.data.get('start')
+              playerRef.current.seekTo(startTime)
+            }}
+          >
+            {children}
+          </a>
+        )
+      default:
+        return next()
+    }
+  }
+
+  return (
+    <Editor
+      value={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+      renderNode={renderNode}
+    />
+  )
 }
 
 export default NodeEditor
