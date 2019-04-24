@@ -1,0 +1,39 @@
+{
+  "name": "beatnotes",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-preset-react-app": "^3.1.0",
+    "immutable": "^4.0.0-rc.12",
+    "react": "^16.8.6",
+    "react-dom": "^16.2.0",
+    "react-player": "^1.11.0",
+    "slate": "^0.45.0",
+    "slate-react": "^0.21.20"
+  },
+  "postcss": {
+    "modules": false,
+    "plugins": {
+      "autoprefixer": {
+        "browsers": [
+          ">1%",
+          "last 4 versions",
+          "Firefox ESR",
+          "not ie < 9"
+        ],
+        "flexbox": "no-2009"
+      }
+    }
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.5.1",
+    "babel-core": "^6.26.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.12.4",
+    "parcel-bundler": "latest"
+  }
+}
