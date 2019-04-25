@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Editor } from 'slate-react'
 import { Value } from 'slate'
+import { Editor } from 'slate-react'
+import timestamp from './timestamp'
 
 const initialValue = Value.fromJSON({
   document: {
@@ -28,60 +29,9 @@ const NodeEditor = ({ playerRef }) => {
   const onChange = ({ value }) => {
     setValue(value)
   }
+  const plugins = [timestamp({ playerRef })]
 
-  const onKeyDown = (event, editor, next) => {
-    if (editor.value.inlines.some(inline => inline.type === 'timestamp')) {
-      event.preventDefault()
-      editor.moveToEndOfInline()
-      next()
-    }
-    if (event.key !== '&') return next()
-    event.preventDefault()
-
-    const currentTime = playerRef.current.getCurrentTime()
-    const minutes = new String(Math.floor(currentTime / 60)).padStart(2, '0')
-    const seconds = new String(Math.floor(currentTime % 60)).padStart(2, '0')
-    editor
-      .insertInline({
-        type: 'timestamp',
-        data: {
-          start: currentTime,
-        },
-      })
-      .insertText(`${minutes}:${seconds}`)
-  }
-
-  const renderNode = (props, editor, next) => {
-    const { node, attributes, children } = props
-
-    switch (node.type) {
-      case 'timestamp':
-        return (
-          <a
-            href=""
-            {...attributes}
-            onClick={e => {
-              e.preventDefault()
-              const startTime = node.data.get('start')
-              playerRef.current.seekTo(startTime)
-            }}
-          >
-            {children}
-          </a>
-        )
-      default:
-        return next()
-    }
-  }
-
-  return (
-    <Editor
-      value={value}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-      renderNode={renderNode}
-    />
-  )
+  return <Editor value={value} onChange={onChange} plugins={plugins} />
 }
 
 export default NodeEditor
