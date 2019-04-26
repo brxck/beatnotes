@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Value } from 'slate'
 import { Editor } from 'slate-react'
+
 import timestamp from './timestamp'
 
 const initialValue = Value.fromJSON({
@@ -29,6 +30,7 @@ const NodeEditor = ({ playerRef }) => {
   const onChange = ({ value }) => {
     setValue(value)
   }
+
   const plugins = [timestamp({ playerRef })]
 
   return <Editor value={value} onChange={onChange} plugins={plugins} />

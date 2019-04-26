@@ -12,7 +12,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.2.0",
     "react-player": "^1.11.0",
-    "slate": "^0.45.0",
+    "slate": "^0.44.13",
+    "slate-instant-replace": "^0.1.10",
     "slate-react": "^0.21.20"
   },
   "postcss": {
