@@ -33,7 +33,13 @@ const NodeEditor = ({ playerRef }) => {
 
   const plugins = [timestamp({ playerRef })]
 
-  return <Editor value={value} onChange={onChange} plugins={plugins} />
+  return (
+    <div>
+      <Editor value={value} onChange={onChange} plugins={plugins} />
+      <br />
+      <pre>{JSON.stringify(value.toJSON(), null, 2)}</pre>
+    </div>
+  )
 }
 
 export default NodeEditor
