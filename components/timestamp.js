@@ -27,8 +27,9 @@ function timestamp({ playerRef }) {
         if (inlines.some(inline => inline.type === 'timestamp')) {
           event.preventDefault()
           editor.moveToEndOfInline()
-          next()
         }
+
+        return next()
       },
       // Render timestamps as functional links
       renderNode(props, editor, next) {

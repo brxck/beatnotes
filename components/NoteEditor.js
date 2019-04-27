@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Value } from 'slate'
 import { Editor } from 'slate-react'
 
 import timestamp from './timestamp'
+import timedata from './timedata'
 
 const initialValue = Value.fromJSON({
   document: {
@@ -27,11 +28,14 @@ const initialValue = Value.fromJSON({
 
 const NodeEditor = ({ playerRef }) => {
   const [value, setValue] = useState(initialValue)
-  const onChange = ({ value }) => {
-    setValue(value)
+  const onChange = change => {
+    setValue(change.value)
   }
 
-  const plugins = [timestamp({ playerRef })]
+  const plugins = useMemo(
+    () => [timestamp({ playerRef }), timedata({ playerRef })],
+    [playerRef]
+  )
 
   return (
     <div>
