@@ -1,38 +1,46 @@
 function timedata({ playerRef }) {
   return {
     onChange(editor, next) {
-      const { value, operations, selection } = editor
+      const { value, operations } = editor
       const { blocks } = value
 
-      const newNodeOperations = operations.some(
-        op => op.type === 'split_node' || op.type === 'insert_node'
-      )
-      const textChanged = operations.some(
-        op => op.type === 'insert_text' || op.type === 'remove_text'
-      )
+      let nodesCreated = false
+      let textUpdated = false
+      operations.forEach(op => {
+        switch (op.type) {
+          case 'insert_text':
+          case 'remove_text':
+            textUpdated = true
+            break
+          case 'split_node':
+            nodesCreated = true
+            break
+        }
+      })
 
-      if (!textChanged && !newNodeOperations) return next()
+      if (!nodesCreated && !textUpdated) return next()
 
       const currentTime = playerRef.current.getCurrentTime()
       const blockData = blocks.last().data.toJS()
+      const newBlockText = blocks
+        .last()
+        .getTexts()
+        .first().text
 
-      if (newNodeOperations) {
-        const newBlocksText = blocks
-          .last()
-          .getTexts()
-          .first().text
-
-        if (newBlocksText === '') {
-          editor.setBlocks({
-            data: { ...blockData, created: currentTime },
-          })
-        }
+      // Update block's created timestamp if a new, empty block was created
+      if (nodesCreated && newBlockText !== '') {
+        editor.setBlocks({
+          data: { ...blockData, created: currentTime },
+        })
       }
-      if (textChanged) {
+
+      // Update block's updated timestamp if text within was changed
+      if (textUpdated) {
         editor.setBlocks({
           data: { ...blockData, updated: currentTime },
         })
       }
+
       return next()
     },
   }

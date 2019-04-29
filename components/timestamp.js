@@ -31,7 +31,7 @@ function timestamp({ playerRef }) {
 
         return next()
       },
-      // Render timestamps as functional links
+      // Render timestamps as links, with onClick handler
       renderNode(props, editor, next) {
         const { node, attributes, children } = props
 
