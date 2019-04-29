@@ -11,6 +11,9 @@ const initialValue = Value.fromJSON({
       {
         object: 'block',
         type: 'paragraph',
+        data: {
+          created: 0,
+        },
         nodes: [
           {
             object: 'text',
