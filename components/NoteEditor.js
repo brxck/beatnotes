@@ -5,6 +5,30 @@ import { Editor } from 'slate-react'
 import timestamp from './timestamp'
 import timedata from './timedata'
 
+const schema = {
+  document: {
+    nodes: [
+      {
+        match: { type: 'paragraph' },
+      },
+    ],
+  },
+  blocks: {
+    paragraph: {
+      nodes: [
+        {
+          match: [{ object: 'text' }, { type: 'timestamp' }],
+        },
+      ],
+    },
+  },
+  inlines: {
+    timestamp: {
+      isVoid: true,
+    },
+  },
+}
+
 const initialValue = Value.fromJSON({
   document: {
     nodes: [
@@ -41,11 +65,7 @@ const NodeEditor = ({ playerRef }) => {
   )
 
   return (
-    <div>
-      <Editor value={value} onChange={onChange} plugins={plugins} />
-      <br />
-      <pre>{JSON.stringify(value.toJSON(), null, 2)}</pre>
-    </div>
+          schema={schema}
   )
 }
 

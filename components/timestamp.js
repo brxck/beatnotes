@@ -16,43 +16,41 @@ function timestamp({ playerRef }) {
         data: {
           start: currentTime,
         },
+        nodes: [
+          {
+            object: 'text',
+            leaves: [
+              {
+                text: formatSeconds(currentTime),
+              },
+            ],
+          },
+        ],
       })
-      editor.insertText(formatSeconds(currentTime))
     }),
     {
-      // Disallow editing timestamps
-      onKeyDown(event, editor, next) {
-        const { inlines } = editor.value
-
-        if (inlines.some(inline => inline.type === 'timestamp')) {
-          event.preventDefault()
-          editor.moveToEndOfInline()
-        }
-
-        return next()
-      },
       // Render timestamps as links, with onClick handler
       renderNode(props, editor, next) {
+        // eslint-disable-next-line react/prop-types
         const { node, attributes, children } = props
 
-        switch (node.type) {
-          case 'timestamp':
-            return (
-              <a
-                href=""
-                {...attributes}
-                onClick={e => {
-                  e.preventDefault()
-                  const startTime = node.data.get('start')
-                  playerRef.current.seekTo(startTime)
-                }}
-              >
-                {children}
-              </a>
-            )
-          default:
-            return next()
-        }
+        if (node.type !== 'timestamp') return next()
+        const startTime = node.data.get('start')
+
+        return (
+          <span>
+            <a
+              href=""
+              {...attributes}
+              onClick={e => {
+                e.preventDefault()
+                playerRef.current.seekTo(startTime)
+              }}
+            >
+              {formatSeconds(startTime)}
+            </a>
+          </span>
+        )
       },
     },
   ]
