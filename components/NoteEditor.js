@@ -43,7 +43,7 @@ const initialValue = Value.fromJSON({
             object: 'text',
             leaves: [
               {
-                text: '',
+                text: 'This is some text in a paragraph',
               },
             ],
           },
@@ -65,7 +65,19 @@ const NodeEditor = ({ playerRef }) => {
   )
 
   return (
+    <div style={{ display: 'flex', marginLeft: '20%' }}>
+      <div style={{ flexBasis: '50%', margin: '1rem' }}>
+        <Editor
+          value={value}
+          onChange={onChange}
+          plugins={plugins}
           schema={schema}
+        />
+      </div>
+      <div style={{ overflow: 'scroll', height: 500, width: 800 }}>
+        <pre>{JSON.stringify(value.toJSON(), null, 2)}</pre>
+      </div>
+    </div>
   )
 }
 
