@@ -1,3 +1,6 @@
+import React from 'react'
+import { formatSeconds } from './helpers'
+
 function timedata({ playerRef }) {
   return {
     onChange(editor, next) {
@@ -42,6 +45,32 @@ function timedata({ playerRef }) {
       }
 
       return next()
+    },
+    renderNode(props, editor, next) {
+      // eslint-disable-next-line react/prop-types
+      const { node, attributes, children } = props
+
+      // return next()
+
+      if (node.type !== 'paragraph') return next()
+
+      const createdTime = node.data.get('created')
+      return (
+        <div style={{ position: 'relative' }} {...attributes}>
+          <span
+            contentEditable={false}
+            style={{
+              position: 'absolute',
+              right: '100%',
+              marginRight: '0.2rem',
+            }}
+            onClick={() => playerRef.current.seekTo(createdTime)}
+          >
+            <a href="">{formatSeconds(createdTime)}</a>
+          </span>
+          <span>{children}</span>
+        </div>
+      )
     },
   }
 }
