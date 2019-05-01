@@ -1,57 +1,10 @@
 import React, { useState, useMemo } from 'react'
-import { Value } from 'slate'
 import { Editor } from 'slate-react'
 
-import timestamp from './timestamp'
-import timedata from './timedata'
-
-const schema = {
-  document: {
-    nodes: [
-      {
-        match: { type: 'paragraph' },
-      },
-    ],
-  },
-  blocks: {
-    paragraph: {
-      nodes: [
-        {
-          match: [{ object: 'text' }, { type: 'timestamp' }],
-        },
-      ],
-    },
-  },
-  inlines: {
-    timestamp: {
-      isVoid: true,
-    },
-  },
-}
-
-const initialValue = Value.fromJSON({
-  document: {
-    nodes: [
-      {
-        object: 'block',
-        type: 'paragraph',
-        data: {
-          created: 0,
-        },
-        nodes: [
-          {
-            object: 'text',
-            leaves: [
-              {
-                text: 'This is some text in a paragraph',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-})
+import initialValue from '../slate/initialValue'
+import schema from '../slate/schema'
+import timestamp from '../slate/timestamp'
+import timedata from '../slate/timedata'
 
 const NodeEditor = ({ playerRef }) => {
   const [value, setValue] = useState(initialValue)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatSeconds } from './helpers'
+import { formatSeconds } from '../components/helpers'
 
 function timedata({ playerRef }) {
   return {

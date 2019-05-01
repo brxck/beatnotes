@@ -1,7 +1,7 @@
 import React from 'react'
 import InstantReplace from 'slate-instant-replace'
 
-import { formatSeconds } from './helpers'
+import { formatSeconds } from '../components/helpers'
 
 function timestamp({ playerRef }) {
   return [
