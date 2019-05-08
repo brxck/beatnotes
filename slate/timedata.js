@@ -31,7 +31,7 @@ function timedata({ playerRef }) {
         .first().text
 
       // Update block's created timestamp if a new, empty block was created
-      if (nodesCreated && newBlockText !== '') {
+      if (nodesCreated && newBlockText === '') {
         editor.setBlocks({
           data: { ...blockData, created: currentTime },
         })
@@ -66,7 +66,7 @@ function timedata({ playerRef }) {
             }}
             onClick={() => playerRef.current.seekTo(createdTime)}
           >
-            <a href="">{formatSeconds(createdTime)}</a>
+            <button>{formatSeconds(createdTime)}</button>
           </span>
           <span>{children}</span>
         </div>
