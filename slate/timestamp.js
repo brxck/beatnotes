@@ -1,4 +1,5 @@
 import React from 'react'
+import { Document } from 'slate'
 import InstantReplace from 'slate-instant-replace'
 
 import { formatSeconds } from '../components/helpers'
@@ -11,22 +12,29 @@ function timestamp({ playerRef }) {
 
       const currentTime = playerRef.current.getCurrentTime()
       editor.moveFocusBackward(lastWord.length)
-      editor.insertInline({
-        type: 'timestamp',
-        data: {
-          start: currentTime,
-        },
-        nodes: [
-          {
-            object: 'text',
-            leaves: [
-              {
-                text: formatSeconds(currentTime),
-              },
-            ],
-          },
-        ],
-      })
+      editor.insertFragment(
+        Document.create({
+          nodes: [
+            {
+              object: 'block',
+              type: 'paragraph',
+              nodes: [
+                {
+                  object: 'inline',
+                  type: 'timestamp',
+                  data: {
+                    start: currentTime,
+                  },
+                },
+                {
+                  object: 'text',
+                  text: ' ',
+                },
+              ],
+            },
+          ],
+        })
+      )
     }),
     {
       // Render timestamps as links, with onClick handler
@@ -38,17 +46,15 @@ function timestamp({ playerRef }) {
         const startTime = node.data.get('start')
 
         return (
-          <span>
-            <a
-              href=""
-              {...attributes}
-              onClick={e => {
-                e.preventDefault()
-                playerRef.current.seekTo(startTime)
-              }}
-            >
-              {formatSeconds(startTime)}
-            </a>
+          <span
+            {...attributes}
+            style={{ textDecoration: 'underline' }}
+            onClick={() => {
+              playerRef.current.seekTo(startTime)
+            }}
+          >
+            {formatSeconds(startTime)}
+            {children}
           </span>
         )
       },

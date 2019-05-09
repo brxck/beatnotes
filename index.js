@@ -11,7 +11,7 @@ const App = () => {
       <h1>beatnotes</h1>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <ReactPlayer
-          url="https://www.youtube.com/watch?v=MVi17tk3VsIi"
+          url="https://www.youtube.com/watch?v=AgpWX18dby4"
           ref={playerRef}
           controls
         />
