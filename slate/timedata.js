@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatSeconds } from '../components/helpers'
+import { secondsToTimestamp } from '../components/helpers'
 
 function timedata({ playerRef }) {
   return {
@@ -7,40 +7,31 @@ function timedata({ playerRef }) {
       const { value, operations } = editor
       const { blocks } = value
 
-      let nodesCreated = false
-      let textUpdated = false
-      operations.forEach(op => {
-        switch (op.type) {
-          case 'insert_text':
-          case 'remove_text':
-            textUpdated = true
-            break
-          case 'split_node':
-            nodesCreated = true
-            break
-        }
-      })
+      if (!blocks.last()) return next()
 
-      if (!nodesCreated && !textUpdated) return next()
-
-      const currentTime = playerRef.current.getCurrentTime()
       const blockData = blocks.last().data.toJS()
-      const newBlockText = blocks
+      const textUpdated = operations.some(
+        op => op.type === 'insert_text' || op.type === 'remove_text'
+      )
+      const blockText = blocks
         .last()
         .getTexts()
         .first().text
 
-      // Update block's created timestamp if a new, empty block was created
-      if (nodesCreated && newBlockText === '') {
+      if (blockText === '') {
+        // Clear previous time data from newly created blocks
         editor.setBlocks({
-          data: { ...blockData, created: currentTime },
+          data: { ...blockData, created: null, updated: null },
         })
-      }
-
-      // Update block's updated timestamp if text within was changed
-      if (textUpdated) {
+      } else if (textUpdated) {
+        // Set new updated time on text update & created time if unset
+        const currentTime = playerRef.current.getCurrentTime()
         editor.setBlocks({
-          data: { ...blockData, updated: currentTime },
+          data: {
+            ...blockData,
+            created: blockData.created || currentTime,
+            updated: currentTime,
+          },
         })
       }
 
@@ -49,8 +40,6 @@ function timedata({ playerRef }) {
     renderNode(props, editor, next) {
       // eslint-disable-next-line react/prop-types
       const { node, attributes, children } = props
-
-      // return next()
 
       if (node.type !== 'paragraph') return next()
 
@@ -66,7 +55,7 @@ function timedata({ playerRef }) {
             }}
             onClick={() => playerRef.current.seekTo(createdTime)}
           >
-            <button>{formatSeconds(createdTime)}</button>
+            <button>{secondsToTimestamp(createdTime)}</button>
           </span>
           <span>{children}</span>
         </div>
