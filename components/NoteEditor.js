@@ -19,7 +19,7 @@ const NodeEditor = ({ playerRef }) => {
 
   return (
     <div style={{ display: 'flex', marginLeft: '20%' }}>
-      <div style={{ flexBasis: '50%', margin: '1rem' }}>
+      <div style={{ flexBasis: '35%', margin: '1rem' }}>
         <Editor
           value={value}
           onChange={onChange}
