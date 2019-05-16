@@ -5,6 +5,7 @@ import initialValue from '../slate/initialValue'
 import schema from '../slate/schema'
 import timestamp from '../slate/timestamp'
 import timedata from '../slate/timedata'
+import softBreak from '../slate/softbreak'
 
 const NodeEditor = ({ playerRef }) => {
   const [value, setValue] = useState(initialValue)
@@ -13,7 +14,7 @@ const NodeEditor = ({ playerRef }) => {
   }
 
   const plugins = useMemo(
-    () => [timestamp({ playerRef }), timedata({ playerRef })],
+    () => [timestamp({ playerRef }), timedata({ playerRef }), softBreak()],
     [playerRef]
   )
 
