@@ -1,4 +1,4 @@
-export const formatSeconds = seconds => {
+export const secondsToTimestamp = seconds => {
   const hh = Math.floor(seconds / 3600).toString()
   const mm = Math.floor((seconds % 3600) / 60)
     .toString()

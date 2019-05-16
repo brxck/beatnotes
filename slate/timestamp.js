@@ -2,7 +2,7 @@ import React from 'react'
 import { Document } from 'slate'
 import InstantReplace from 'slate-instant-replace'
 
-import { formatSeconds } from '../components/helpers'
+import { secondsToTimestamp } from '../components/helpers'
 
 function timestamp({ playerRef }) {
   return [
@@ -53,7 +53,7 @@ function timestamp({ playerRef }) {
               playerRef.current.seekTo(startTime)
             }}
           >
-            {formatSeconds(startTime)}
+            {secondsToTimestamp(startTime)}
             {children}
           </span>
         )
