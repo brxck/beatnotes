@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react'
+import PropTypes from 'prop-types'
 import { Editor } from 'slate-react'
+import MarkHotkeys from 'slate-mark-hotkeys'
 
 import initialValue from '../slate/initialValue'
 import schema from '../slate/schema'
@@ -7,14 +9,19 @@ import timestamp from '../slate/timestamp'
 import timedata from '../slate/timedata'
 import softBreak from '../slate/softbreak'
 
-const NodeEditor = ({ playerRef }) => {
+const Notes = ({ playerRef }) => {
   const [value, setValue] = useState(initialValue)
   const onChange = change => {
     setValue(change.value)
   }
 
   const plugins = useMemo(
-    () => [timestamp({ playerRef }), timedata({ playerRef }), softBreak()],
+    () => [
+      timestamp({ playerRef }),
+      timedata({ playerRef }),
+      softBreak(),
+      MarkHotkeys(),
+    ],
     [playerRef]
   )
 
@@ -35,4 +42,10 @@ const NodeEditor = ({ playerRef }) => {
   )
 }
 
-export default NodeEditor
+Notes.propTypes = {
+  playerRef: PropTypes.shape.isRequired({
+    current: PropTypes.instanceOf(Element),
+  }),
+}
+
+export default Notes

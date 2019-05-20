@@ -1,22 +1,16 @@
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
-import ReactPlayer from 'react-player'
 
-import NoteEditor from './components/NoteEditor'
+import Notes from './components/Notes'
+import Player from './components/Player'
 
 const App = () => {
-  const playerRef = useRef({})
+  const playerRef = useRef()
   return (
     <div>
       <h1>beatnotes</h1>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <ReactPlayer
-          url="https://www.youtube.com/watch?v=AgpWX18dby4"
-          ref={playerRef}
-          controls
-        />
-      </div>
-      <NoteEditor playerRef={playerRef} />
+      <Player playerRef={playerRef} />
+      <Notes playerRef={playerRef} />
     </div>
   )
 }
