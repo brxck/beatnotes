@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Editor } from 'slate-react'
 import MarkHotkeys from 'slate-mark-hotkeys'
 
+import Debug from './Debug'
 import initialValue from '../slate/initialValue'
 import schema from '../slate/schema'
 import timestamp from '../slate/timestamp'
@@ -35,15 +36,13 @@ const Notes = ({ playerRef }) => {
           schema={schema}
         />
       </div>
-      <div style={{ overflow: 'scroll', height: 500, width: 800 }}>
-        <pre>{JSON.stringify(value.toJSON(), null, 2)}</pre>
-      </div>
+      <Debug value={value} />
     </div>
   )
 }
 
 Notes.propTypes = {
-  playerRef: PropTypes.shape.isRequired({
+  playerRef: PropTypes.shape({
     current: PropTypes.instanceOf(Element),
   }),
 }
