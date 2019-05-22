@@ -27,17 +27,20 @@ const Notes = ({ playerRef }) => {
   )
 
   return (
-    <div style={{ display: 'flex', marginLeft: '20%' }}>
-      <div style={{ flexBasis: '35%', margin: '1rem' }}>
-        <Editor
-          value={value}
-          onChange={onChange}
-          plugins={plugins}
-          schema={schema}
-        />
-      </div>
+    <>
+      <Editor
+        value={value}
+        onChange={onChange}
+        plugins={plugins}
+        schema={schema}
+        style={{
+          border: '1px solid whitesmoke',
+          color: '#222',
+          lineHeight: '1.5rem',
+        }}
+      />
       <Debug value={value} />
-    </div>
+    </>
   )
 }
 
