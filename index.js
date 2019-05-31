@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { css } from '@emotion/core'
+import 'normalize.css'
 
 import Notes from './components/Notes'
 import Player from './components/Player'
