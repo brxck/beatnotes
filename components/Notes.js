@@ -34,7 +34,6 @@ const Notes = ({ playerRef }) => {
         plugins={plugins}
         schema={schema}
         style={{
-          border: '1px solid whitesmoke',
           color: '#222',
           lineHeight: '1.5rem',
         }}
