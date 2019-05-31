@@ -1,5 +1,5 @@
 import React from 'react'
-import { secondsToTimestamp } from '../components/helpers'
+import Beat from '../components/Beat'
 
 function timedata({ playerRef }) {
   return {
@@ -45,20 +45,13 @@ function timedata({ playerRef }) {
 
       const createdTime = node.data.get('created')
       return (
-        <div style={{ position: 'relative' }} {...attributes}>
-          <span
-            contentEditable={false}
-            style={{
-              position: 'absolute',
-              right: '100%',
-              marginRight: '0.2rem',
-            }}
-            onClick={() => playerRef.current.seekTo(createdTime)}
-          >
-            <button>{secondsToTimestamp(createdTime)}</button>
-          </span>
-          <span>{children}</span>
-        </div>
+        <Beat
+          attributes={attributes}
+          seconds={createdTime}
+          playerRef={playerRef}
+        >
+          {children}
+        </Beat>
       )
     },
   }
