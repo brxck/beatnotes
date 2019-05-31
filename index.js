@@ -13,11 +13,24 @@ const App = () => {
     <div
       css={css`
         display: flex;
-        height: 100vh;
+        max-height: 100vh;
         justify-content: center;
+        overflow: hidden;
         & > div {
           max-width: 700;
-          margin: 1rem 4rem;
+          margin: 2rem 1rem;
+          width: 45%;
+        }
+
+        @media (max-width: 1000px) {
+          align-items: center;
+          flex-direction: column;
+          justify-content: initial;
+          & > div {
+            margin: 0;
+            margin-bottom: 1rem;
+            width: 100%;
+          }
         }
       `}
     >
@@ -25,7 +38,14 @@ const App = () => {
         <Header />
         <Player playerRef={playerRef} />
       </div>
-      <div>
+
+      <div
+        css={css`
+          padding-right: 1rem;
+          overflow-x: hidden;
+          overflow-y: scroll;
+        `}
+      >
         <Notes playerRef={playerRef} />
       </div>
     </div>

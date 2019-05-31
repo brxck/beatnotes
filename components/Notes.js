@@ -36,6 +36,7 @@ const Notes = ({ playerRef }) => {
         style={{
           color: '#222',
           lineHeight: '1.5rem',
+          paddingLeft: '4rem',
         }}
       />
       <Debug value={value} />

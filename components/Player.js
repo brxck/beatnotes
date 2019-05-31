@@ -8,7 +8,7 @@ const Player = ({ playerRef }) => {
 
   return (
     <>
-      <ReactPlayer url={url} ref={playerRef} controls />
+      <ReactPlayer url={url} ref={playerRef} controls width="100%" />
       <div>
         <input
           type="text"
