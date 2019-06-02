@@ -1,7 +1,7 @@
 import React from 'react'
 import Beat from '../components/Beat'
 
-function timedata({ playerRef }) {
+function timedata({ playerRef, reviewMode }) {
   return {
     onChange(editor, next) {
       const { value, operations } = editor
@@ -25,12 +25,13 @@ function timedata({ playerRef }) {
         })
       } else if (textUpdated) {
         // Set new updated time on text update & created time if unset
+        // Don't update time if in review mode
         const currentTime = playerRef.current.getCurrentTime()
         editor.setBlocks({
           data: {
             ...blockData,
             created: blockData.created || currentTime,
-            updated: currentTime,
+            updated: reviewMode ? blockData.updated : currentTime,
           },
         })
       }

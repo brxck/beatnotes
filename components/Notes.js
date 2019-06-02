@@ -1,25 +1,28 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Editor } from 'slate-react'
 import MarkHotkeys from 'slate-mark-hotkeys'
 
 import Debug from './Debug'
+import { Context } from './GlobalState'
 import initialValue from '../slate/initialValue'
 import schema from '../slate/schema'
 import timestamp from '../slate/timestamp'
 import timedata from '../slate/timedata'
 import softBreak from '../slate/softbreak'
 
-const Notes = ({ playerRef }) => {
+function Notes({ playerRef }) {
   const [value, setValue] = useState(initialValue)
   const onChange = change => {
     setValue(change.value)
   }
+  const [state, setState] = useContext(Context)
+  const { reviewMode } = state
 
   const plugins = useMemo(
     () => [
       timestamp({ playerRef }),
-      timedata({ playerRef }),
+      timedata({ playerRef, reviewMode }),
       softBreak(),
       MarkHotkeys(),
     ],
@@ -39,7 +42,7 @@ const Notes = ({ playerRef }) => {
           paddingLeft: '4rem',
         }}
       />
-      <Debug value={value} />
+      {/* <Debug value={value} /> */}
     </>
   )
 }
