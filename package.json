@@ -8,6 +8,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "babel-eslint": "^10.0.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
     "immutable": "^4.0.0-rc.12",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
@@ -17,7 +18,8 @@
     "slate": "^0.44.13",
     "slate-instant-replace": "^0.1.10",
     "slate-mark-hotkeys": "^0.2.0",
-    "slate-react": "^0.21.20"
+    "slate-react": "^0.21.20",
+    "use-dark-mode": "^2.3.1"
   },
   "postcss": {
     "modules": false,
