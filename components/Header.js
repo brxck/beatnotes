@@ -1,6 +1,8 @@
 import React from 'react'
 import { css } from '@emotion/core'
 
+import Controls from './Controls'
+
 function Header() {
   return (
     <div
@@ -11,11 +13,7 @@ function Header() {
       `}
     >
       <h1>beatnotes</h1>
-      <div>
-        <button>theme</button>
-        <button>time</button>
-        <button>user</button>
-      </div>
+      <Controls />
     </div>
   )
 }

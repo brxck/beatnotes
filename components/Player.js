@@ -1,29 +1,20 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext } from 'react'
 import ReactPlayer from 'react-player'
 import PropTypes from 'prop-types'
 
-const Player = ({ playerRef }) => {
-  const urlRef = useRef()
-  const [url, setUrl] = useState('https://www.youtube.com/watch?v=AgpWX18dby4')
+import { Context } from './GlobalState'
+
+function Player({ playerRef }) {
+  const [state, setState] = useContext(Context)
+  const { url } = state
 
   return (
     <>
       <ReactPlayer url={url} ref={playerRef} controls width="100%" />
+
       <div>
-        <input
-          type="text"
-          name="url"
-          id="url"
-          ref={urlRef}
-          defaultValue={url}
-        />
-        <button
-          onClick={() => {
-            setUrl(urlRef.current.value)
-          }}
-        >
-          go
-        </button>
+        <p>Shift+Enter: soft break</p>
+        <p>%t: timestamp</p>
       </div>
     </>
   )
