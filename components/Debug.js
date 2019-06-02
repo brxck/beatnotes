@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const Debug = ({ value }) => {
+function Debug({ value }) {
   const [state, setState] = useState(false)
 
   return (

@@ -4,7 +4,7 @@ import { css } from '@emotion/core'
 
 import { secondsToTimestamp } from '../components/helpers'
 
-const Beat = props => {
+function Beat(props) {
   const { seconds, attributes, children, playerRef } = props
   return (
     <div
