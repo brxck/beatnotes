@@ -13,8 +13,16 @@ function Player({ playerRef }) {
       <ReactPlayer url={url} ref={playerRef} controls width="100%" />
 
       <div>
-        <p>Shift+Enter: soft break</p>
-        <p>%t: timestamp</p>
+        <p>
+          Supports YouTube, Vimeo, Facebook, SoundCloud, Dailymotion, & Twitch
+        </p>
+        <p>
+          Press <i>shift + enter</i> to insert a new line in the same time
+          block.
+        </p>
+        <p>
+          Type <i>%t</i> to insert a timestamp.
+        </p>
       </div>
     </>
   )
