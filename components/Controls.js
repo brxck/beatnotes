@@ -25,19 +25,23 @@ export default function Controls() {
         onChange={e => setUrlInput(e.currentTarget.value)}
         hidden={!inputVisible}
       />
-      <button name="url" onClick={handleUrlToggle}>
+      <button name="url" title="Change content" onClick={handleUrlToggle}>
         <span role="img" aria-label="content url">
           🔗
         </span>
       </button>
-      <button name="reviewMode" onClick={handleToggle}>
+      <button
+        name="reviewMode"
+        title="Toggle review mode"
+        onClick={handleToggle}
+      >
         <span role="img" aria-label="review mode">
-          🕑
+          {state.reviewMode ? '⌛' : '⏳'}
         </span>
       </button>
-      <button name="darkMode" onClick={handleToggle}>
+      <button name="darkMode" title="Toggle dark mode" onClick={handleToggle}>
         <span role="img" aria-label="dark mode">
-          🌙
+          {state.darkMode ? '☀️' : '🌙'}
         </span>
       </button>
       <button name="user">
