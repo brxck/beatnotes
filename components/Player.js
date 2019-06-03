@@ -2,12 +2,11 @@ import React, { useContext } from 'react'
 import ReactPlayer from 'react-player'
 import PropTypes from 'prop-types'
 
-import { Context } from './GlobalState'
+import { GlobalContext } from './GlobalState'
 
 function Player({ playerRef }) {
-  const [state, setState] = useContext(Context)
-  const { url } = state
-
+  const { globalState } = useContext(GlobalContext)
+  const { url } = globalState
   return (
     <>
       <ReactPlayer url={url} ref={playerRef} controls width="100%" />

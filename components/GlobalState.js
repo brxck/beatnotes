@@ -8,13 +8,15 @@ const initialState = {
   url: 'https://www.youtube.com/watch?v=AgpWX18dby4',
 }
 
-const Context = React.createContext(initialState)
+const GlobalContext = React.createContext(initialState)
 
 export default function GlobalState({ children }) {
   const [state, setState] = useState(initialState)
 
   return (
-    <Context.Provider value={[state, setState]}>
+    <GlobalContext.Provider
+      value={{ globalState: state, setGlobalState: setState }}
+    >
       <>
         {children}
         {state.darkMode && (
@@ -32,7 +34,7 @@ export default function GlobalState({ children }) {
           />
         )}
       </>
-    </Context.Provider>
+    </GlobalContext.Provider>
   )
 }
 
@@ -40,4 +42,4 @@ GlobalState.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export { Context }
+export { GlobalContext }

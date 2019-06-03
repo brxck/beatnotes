@@ -1,20 +1,20 @@
 import React, { useContext, useState } from 'react'
 import { css } from '@emotion/core'
-import { Context } from './GlobalState'
+import { GlobalContext } from './GlobalState'
 
 export default function Controls() {
-  const [state, setState] = useContext(Context)
-  const [urlInput, setUrlInput] = useState(state.url)
+  const { globalState, setGlobalState } = useContext(GlobalContext)
+  const [urlInput, setUrlInput] = useState(globalState.url)
   const [inputVisible, setInputVisible] = useState(false)
 
   function handleToggle(e) {
     const { name } = e.currentTarget
-    setState(previous => ({ ...previous, [name]: !previous[name] }))
+    setGlobalState(previous => ({ ...previous, [name]: !previous[name] }))
   }
 
   function handleUrlToggle() {
     setInputVisible(previous => !previous)
-    setState(previous => ({ ...previous, url: urlInput }))
+    setGlobalState(previous => ({ ...previous, url: urlInput }))
   }
 
   return (
@@ -36,12 +36,12 @@ export default function Controls() {
         onClick={handleToggle}
       >
         <span role="img" aria-label="review mode">
-          {state.reviewMode ? '⌛' : '⏳'}
+          {globalState.reviewMode ? '⌛' : '⏳'}
         </span>
       </button>
       <button name="darkMode" title="Toggle dark mode" onClick={handleToggle}>
         <span role="img" aria-label="dark mode">
-          {state.darkMode ? '☀️' : '🌙'}
+          {globalState.darkMode ? '☀️' : '🌙'}
         </span>
       </button>
       <button name="user">

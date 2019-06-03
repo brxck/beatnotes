@@ -4,7 +4,7 @@ import { Editor } from 'slate-react'
 import MarkHotkeys from 'slate-mark-hotkeys'
 
 import Debug from './Debug'
-import { Context } from './GlobalState'
+import { GlobalContext } from './GlobalState'
 import initialValue from '../slate/initialValue'
 import schema from '../slate/schema'
 import timestamp from '../slate/timestamp'
@@ -16,8 +16,8 @@ function Notes({ playerRef }) {
   const onChange = change => {
     setValue(change.value)
   }
-  const [state, setState] = useContext(Context)
-  const { reviewMode } = state
+  const { globalState } = useContext(GlobalContext)
+  const { reviewMode } = globalState
 
   const plugins = useMemo(
     () => [
