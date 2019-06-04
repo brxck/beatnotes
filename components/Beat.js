@@ -20,9 +20,9 @@ function Beat(props) {
           position: absolute;
           right: 100%;
         `}
-        onClick={() => playerRef.current.seekTo(seconds)}
       >
         <button
+          onClick={() => playerRef.current.seekTo(seconds)}
           css={css`
             background: transparent;
             border: none;
