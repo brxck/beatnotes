@@ -40,6 +40,7 @@ function Notes({ playerRef }) {
           color: '#222',
           lineHeight: '1.5rem',
           paddingLeft: '4rem',
+          paddingBottom: '100%',
         }}
       />
       {/* <Debug value={value} /> */}

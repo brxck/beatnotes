@@ -18,7 +18,15 @@ export default function Controls() {
   }
 
   return (
-    <div>
+    <div
+      css={css`
+        button {
+          background: transparent;
+          border: none;
+          padding: 0.5rem 1rem;
+        }
+      `}
+    >
       <input
         type="text"
         value={urlInput}

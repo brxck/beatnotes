@@ -49,6 +49,7 @@ function App() {
             padding-right: 1rem;
             overflow-x: hidden;
             overflow-y: scroll;
+            scrollbar-width: none;
           `}
         >
           <Notes playerRef={playerRef} />

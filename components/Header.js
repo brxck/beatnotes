@@ -8,11 +8,18 @@ function Header() {
     <div
       css={css`
         align-items: baseline;
-        justify-content: space-between;
         display: flex;
+        justify-content: space-between;
       `}
     >
-      <h1>beatnotes</h1>
+      <h1
+        css={css`
+          color: #333;
+          font-weight: 300;
+        `}
+      >
+        beatnotes
+      </h1>
       <Controls />
     </div>
   )

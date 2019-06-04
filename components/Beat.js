@@ -29,7 +29,7 @@ function Beat(props) {
             border-bottom: 1px solid #999;
             color: #555;
             height: 1.5rem;
-            padding: 0 0.2rem;
+            padding: 0;
             font-size: 0.9rem;
             margin-right: 0.3rem;
             transition: all 0.2s;
@@ -39,7 +39,7 @@ function Beat(props) {
               border-color: #333;
               cursor: pointer;
               margin-right: 0;
-              padding-right: 0.5rem;
+              padding: 0 0.3rem;
             }
           `}
         >
