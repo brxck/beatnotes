@@ -22,8 +22,16 @@ export default function Controls() {
       css={css`
         button {
           background: transparent;
-          border: none;
-          padding: 0.5rem 1rem;
+          border: 1px solid #eee;
+          border-radius: 4px;
+          padding: 0.5rem;
+          margin: 0 0.5rem;
+          transition: border 0.3s;
+          &:hover {
+            background: #eee;
+            border: 1px solid #ddd;
+            cursor: pointer;
+          }
         }
       `}
     >
@@ -33,28 +41,24 @@ export default function Controls() {
         onChange={e => setUrlInput(e.currentTarget.value)}
         hidden={!inputVisible}
       />
-      <button name="url" title="Change content" onClick={handleUrlToggle}>
-        <span role="img" aria-label="content url">
-          🔗
+      <button name="url" title="New note" onClick={handleUrlToggle}>
+        <span role="img" aria-label="new note">
+          {inputVisible ? '✔' : '➕'}
         </span>
       </button>
       <button
         name="reviewMode"
         title="Toggle review mode"
+        className={globalState.reviewMode ? 'active' : ''}
         onClick={handleToggle}
       >
         <span role="img" aria-label="review mode">
-          {globalState.reviewMode ? '⌛' : '⏳'}
+          {globalState.reviewMode ? '🔒' : '🔓'}
         </span>
       </button>
       <button name="darkMode" title="Toggle dark mode" onClick={handleToggle}>
         <span role="img" aria-label="dark mode">
           {globalState.darkMode ? '☀️' : '🌙'}
-        </span>
-      </button>
-      <button name="user">
-        <span role="img" aria-label="user">
-          👨
         </span>
       </button>
     </div>
