@@ -13,10 +13,20 @@ const GlobalContext = React.createContext(initialState)
 export default function GlobalState({ children }) {
   const [state, setState] = useState(initialState)
 
+  function setGlobalState(key, value) {
+    if (typeof key === 'function') {
+      const fn = key
+      const newState = fn(state)
+      setState(newState)
+    } else {
+      setState(prev => ({ ...prev, [key]: value }))
+    }
+  }
+
+  const { data, isLoading, error } = useApi('/validate', { token: state.token })
+
   return (
-    <GlobalContext.Provider
-      value={{ globalState: state, setGlobalState: setState }}
-    >
+    <GlobalContext.Provider value={{ globalState: state, setGlobalState }}>
       <>
         {children}
         {state.darkMode && (

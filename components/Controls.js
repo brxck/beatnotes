@@ -9,12 +9,12 @@ export default function Controls() {
 
   function handleToggle(e) {
     const { name } = e.currentTarget
-    setGlobalState(previous => ({ ...previous, [name]: !previous[name] }))
+    setGlobalState(prev => ({ ...prev, [name]: !prev[name] }))
   }
 
   function handleUrlToggle() {
-    setInputVisible(previous => !previous)
-    setGlobalState(previous => ({ ...previous, url: urlInput }))
+    setInputVisible(prev => !prev)
+    setGlobalState('url', urlInput)
   }
 
   return (
@@ -59,6 +59,11 @@ export default function Controls() {
       <button name="darkMode" title="Toggle dark mode" onClick={handleToggle}>
         <span role="img" aria-label="dark mode">
           {globalState.darkMode ? '☀️' : '🌙'}
+        </span>
+      </button>
+      <button onClick={() => {}}>
+        <span role="img" aria-label="user">
+          👨
         </span>
       </button>
     </div>
