@@ -13,6 +13,7 @@
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-async": "^6.2.0",
     "react-dom": "^16.2.0",
     "react-player": "^1.11.0",
     "slate": "^0.44.13",
@@ -35,6 +36,9 @@
       }
     }
   },
+  "browserslist": [
+    "since 2017-06"
+  ],
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
