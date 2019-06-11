@@ -1,74 +1,60 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Cookies from 'js-cookie'
 
-function fetchWithToken(url, options) {
-  const headers = {
-    Authorization: `Bearer ${options.token}`,
-    'Content-Type': 'application/json',
+function fetchApi(path, options) {
+  const url = process.env.API
+  const defaultOptions = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   }
-  return fetch(url, { headers, ...options })
+  return fetch(url + path, { ...defaultOptions, ...options })
 }
 
 const UserContext = React.createContext()
 
 export default function UserProvider({ children }) {
-  const url = process.env.API
-  const [token, setToken] = useState(null)
   const [user, setUser] = useState(null)
 
-  function resetState() {
-    setToken(null)
-    setUser(null)
-    Cookies.remove('user')
-  }
-
   function login(email, password) {
-    fetch(url + '/login', {
+    const loginParams = { email, password }
+    fetchApi('/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+      body: JSON.stringify(loginParams),
     })
       .then(response => {
         if (!response.ok) throw new Error(response.statusText)
         return response.json()
       })
       .then(data => {
-        setToken(data)
-        setUser(email)
-        Cookies.set('user', { ...data, email })
+        setUser(data)
       })
       .catch(error => console.error(error))
   }
 
   function logout() {
-    fetchWithToken(url + '/logout', { token, method: 'DELETE' })
+    fetchApi('/logout', { method: 'DELETE' })
       .then(() => {
-        resetState()
+        setUser(null)
       })
       .catch(error => console.error(error.message))
   }
 
   function validate() {
-    fetchWithToken(url + '/validate', { token }).catch(error => {
+    fetchApi('/validate').catch(error => {
       if (error.status === '401') {
-        resetState()
-        console.log('!')
+        setUser(null)
       } else {
         console.error(error)
       }
     })
   }
 
-  const value = { login, logout, validate, user, token }
+  const value = { login, logout, validate, user }
 
   useEffect(() => {
-    if (token) validate()
+    validate()
   }, [])
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

@@ -10,7 +10,6 @@
     "babel-eslint": "^10.0.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "immutable": "^4.0.0-rc.12",
-    "js-cookie": "^2.2.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

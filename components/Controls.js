@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { css } from '@emotion/core'
+
+import { UserContext } from '../context/UserProvider'
 import { GlobalContext } from '../context/GlobalStateProvider'
 
 export default function Controls() {
   const { globalState, setGlobalState } = useContext(GlobalContext)
+  const { login, logout, user, token } = useContext(UserContext)
   const [urlInput, setUrlInput] = useState(globalState.url)
   const [inputVisible, setInputVisible] = useState(false)
 
@@ -61,9 +64,13 @@ export default function Controls() {
           {globalState.darkMode ? '☀️' : '🌙'}
         </span>
       </button>
-      <button onClick={() => {}}>
+      <button
+        onClick={() => {
+          login('brxck@protonmail.com', 'password')
+        }}
+      >
         <span role="img" aria-label="user">
-          👨
+          {user ? 'true' : 'false'}
         </span>
       </button>
     </div>
