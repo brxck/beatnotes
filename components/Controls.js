@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { css } from '@emotion/core'
-import { GlobalContext } from './GlobalState'
+import { GlobalContext } from '../context/GlobalStateProvider'
 
 export default function Controls() {
   const { globalState, setGlobalState } = useContext(GlobalContext)

@@ -3,12 +3,13 @@ import ReactPlayer from 'react-player'
 import PropTypes from 'prop-types'
 import { css } from '@emotion/core'
 
-import { GlobalContext } from './GlobalState'
+import { GlobalContext } from '../context/GlobalStateProvider'
 
 function Player({ playerRef }) {
   const { globalState } = useContext(GlobalContext)
   const { url } = globalState
   const [helpVisible, setHelpVisible] = useState(true)
+
   return (
     <>
       <ReactPlayer url={url} ref={playerRef} controls width="100%" />

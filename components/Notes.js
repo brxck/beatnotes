@@ -4,7 +4,7 @@ import { Editor } from 'slate-react'
 import MarkHotkeys from 'slate-mark-hotkeys'
 
 import Debug from './Debug'
-import { GlobalContext } from './GlobalState'
+import { GlobalContext } from '../context/GlobalStateProvider'
 import initialValue from '../slate/initialValue'
 import schema from '../slate/schema'
 import timestamp from '../slate/timestamp'

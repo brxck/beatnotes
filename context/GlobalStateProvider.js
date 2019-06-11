@@ -10,7 +10,7 @@ const initialState = {
 
 const GlobalContext = React.createContext(initialState)
 
-export default function GlobalState({ children }) {
+export default function GlobalStateProvider({ children }) {
   const [state, setState] = useState(initialState)
 
   function setGlobalState(key, value) {
@@ -23,32 +23,27 @@ export default function GlobalState({ children }) {
     }
   }
 
-  const { data, isLoading, error } = useApi('/validate', { token: state.token })
-
   return (
     <GlobalContext.Provider value={{ globalState: state, setGlobalState }}>
-      <>
-        {children}
-        {state.darkMode && (
-          <Global
-            styles={css`
-              html {
-                filter: invert(100%);
-              }
-              img,
-              span[role='img'],
-              iframe {
-                filter: invert(100%);
-              }
-            `}
-          />
-        )}
-      </>
+      {children}
+      {state.darkMode && (
+        <Global
+          styles={css`
+            html {
+              filter: invert(100%);
+            }
+            img,
+            iframe {
+              filter: invert(100%);
+            }
+          `}
+        />
+      )}
     </GlobalContext.Provider>
   )
 }
 
-GlobalState.propTypes = {
+GlobalStateProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
